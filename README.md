@@ -1,6 +1,7 @@
 # pi.watering-system
 
 ## TODO:
+  - Camera system, recording, time lapse
   - Water Level Logic
   - Web Interface
 ## Schematic:
