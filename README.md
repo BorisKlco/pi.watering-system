@@ -6,8 +6,8 @@
   - Web Interface
 ## Schematic:
 
-https://excalidraw.com/#json=D775Pf8q0kEPer_NS6LwL,mYgtfJafspxVbZsRqOmLKQ
-![schematic](https://github.com/BorisKlco/pi.watering-system/assets/122160506/a47c8465-2dc5-4fb9-b885-d556543b6088)
+[https://excalidraw.com/#json=RlH4OjntAQs4o_2UkupOm,U1BlJojmNKWQhYva5iNXTw](https://excalidraw.com/#json=RlH4OjntAQs4o_2UkupOm,U1BlJojmNKWQhYva5iNXTw)
+![schematic](https://github.com/BorisKlco/pi.watering-system/assets/122160506/15217553-2fb1-42f7-bf57-1add2bde71e9)
 
 ## Build:
 ![open](https://github.com/BorisKlco/pi.watering-system/assets/122160506/ed4f63c9-7a9a-429f-954e-70eaef0ee16b)
