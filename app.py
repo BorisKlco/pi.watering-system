@@ -31,6 +31,7 @@ def sensor_output():
 
 
 def water(sec=5):
+    # ~10ml = 1sec
     print(f"{now()} - Watering for {sec}s...")
     pump.on()
     time.sleep(sec)
