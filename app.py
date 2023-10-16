@@ -8,9 +8,10 @@ sensor = Relay(24)
 
 
 def init():
-    data.init()
-    pump.init()
-    sensor.init()
+    print("-- START --")
+    data.init("Sensor output")
+    pump.init("Pump")
+    sensor.init("Sensor")
 
 
 def now():
@@ -30,8 +31,7 @@ def sensor_output():
 try:
     init()
     sensor_output()
-    # pump.off()
 
 finally:
-    print("clean")
+    print("-- END -- cleaning GPIO channels...")
     GPIO.cleanup()
