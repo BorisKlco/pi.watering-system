@@ -1,17 +1,18 @@
+import time
 import RPi.GPIO as GPIO
 from controller import Relay, Sensor
-import time
 
-data = Sensor(22)
+sensor_data = Sensor(22)
 pump = Relay(23)
 sensor = Relay(24)
 
 
 def init():
     print("-- START --")
-    data.init("Sensor output")
-    pump.init("Pump")
-    sensor.init("Sensor")
+    sensor_data.init("Sensor output data")
+    pump.init("Pump Relay")
+    sensor.init("Sensor Relay")
+    print("-- START --\n")
 
 
 def now():
@@ -21,11 +22,12 @@ def now():
 def sensor_output():
     sensor.on()
     time.sleep(2)
-    sensor_data = "dry" if data.output() else "wet"
+    reading = sensor_data.output()
+    timestemp = now()
     time.sleep(1)
     sensor.off()
-    print(now(), "- sensor output:", sensor_data)
-    return sensor_data
+    print(timestemp, "- sensor output:", ("dry" if reading else "wet"))
+    return reading, timestemp
 
 
 try:
@@ -33,5 +35,5 @@ try:
     sensor_output()
 
 finally:
-    print("-- END -- cleaning GPIO channels...")
+    print("\n-- END -- \ncleaning GPIO channels...")
     GPIO.cleanup()
