@@ -28,5 +28,5 @@ class Sensor:
     def init(self):
         GPIO.setup(self.pin, GPIO.IN)
 
-    def data(self):
+    def output(self):
         return GPIO.input(self.pin)
