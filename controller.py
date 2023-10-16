@@ -13,7 +13,7 @@ class Relay:
 
     def init(self, name):
         GPIO.setup(self.pin, GPIO.OUT)
-        print(name, "- GPIO.OUT init...")
+        print(f"{name} - GPIO.OUT - pin {self.pin} - init...")
 
     def on(self):
         GPIO.output(self.pin, GPIO.LOW)
@@ -28,7 +28,7 @@ class Sensor:
 
     def init(self, name):
         GPIO.setup(self.pin, GPIO.IN)
-        print(name, "GPIO.IN init...")
+        print(f"{name} - GPIO.IN - pin {self.pin} - init...")
 
     def output(self):
         return GPIO.input(self.pin)
