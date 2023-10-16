@@ -16,23 +16,33 @@ def init():
 
 
 def now():
-    return time.strftime("%d/%m/%y - %H:%M", time.localtime())
+    return time.strftime("%d/%m/%y - %H:%M:%S", time.localtime())
 
 
 def sensor_output():
+    timestemp = now()
     sensor.on()
     time.sleep(2)
     reading = sensor_data.output()
-    timestemp = now()
     time.sleep(1)
     sensor.off()
     print(timestemp, "- sensor output:", ("dry" if reading else "wet"))
-    return reading, timestemp
+    return reading
+
+
+def water(sec=5):
+    print(f"{now()} - Watering for {sec}s...")
+    pump.on()
+    time.sleep(sec)
+    pump.off()
+    print(f"{now()} - Watering done...")
 
 
 try:
     init()
-    sensor_output()
+    output = sensor_output()
+    print("Sensor data:", output)
+    water(3)
 
 finally:
     print("\n-- END -- \ncleaning GPIO channels...")
