@@ -5,6 +5,7 @@ from controller import Relay, Sensor
 sensor_data = Sensor(22)
 pump = Relay(23)
 sensor = Relay(24)
+last_watering = time.time()
 
 
 def init():
@@ -41,9 +42,10 @@ def water(sec=5):
 
 try:
     init()
-    output = sensor_output()
-    print("Sensor data:", output)
-    water(3)
+
+    while True:
+        time.sleep(1)
+        print(time.time() - last_watering)
 
 finally:
     print("\n-- END -- \ncleaning GPIO channels...")
