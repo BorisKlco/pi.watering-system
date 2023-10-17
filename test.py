@@ -9,14 +9,21 @@ WATERING_INTERVAL = 6  # 12 hour - 43200
 SERVER = "http://127.0.0.1:5173/"
 
 
-data_text = "Hello"
-data_snapshot = os.path.join(os.getcwd(), "cat.jpg")
+def record():
+    try:
+        data_time = time.time()
+        data_snapshot = "path/to/file"
+        snapshot_name = time.strftime("%y-%m-%d-%h") + ".jpg"
 
-data = {"text": data_text}
+        data = {"time": data_time}
 
-files = {"file": ("cat.jpg", open(data_snapshot, "rb"))}
-print(data, files)
-req = requests.post(SERVER, data=data, files=files)
+        files = {"file": (snapshot_name, open(data_snapshot, "rb"))}
+        print(data, files)
+        requests.post(SERVER, data=data, files=files, timeout=15)
+        return "Record send..."
+    except:
+        return "Error while sending record..."
+
 
 # while True:
 #     time.sleep(SLEEP_INTERVAL)
