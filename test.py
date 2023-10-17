@@ -6,7 +6,7 @@ import requests
 last_watering = time.time()
 SLEEP_INTERVAL = 1  # 1 hour - 3600
 WATERING_INTERVAL = 6  # 12 hour - 43200
-SERVER = "http://127.0.0.1:5173/"
+SERVER = "http://127.0.0.1:5173/store-record"
 
 
 def record(photo_name):
