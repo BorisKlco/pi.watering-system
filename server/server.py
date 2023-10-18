@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 SERVER_TYPE = "exposed"  # 'caddy, 'exposed'
 WHITELIST = ["127.0.0.1"]
 PHOTO_FOLDER = os.getcwd()
-DB = "postgresql://ibkyqvtn:eJlBdsPGn65oQohL_psiD_dTvT7uJwtd@ella.db.elephantsql.com/ibkyqvtn"
+DB = "sqlite:///" + PHOTO_FOLDER + "/db.sqlite3"
 
 db = SQLAlchemy()
 app = Flask(__name__)
