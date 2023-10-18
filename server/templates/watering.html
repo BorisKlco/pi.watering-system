@@ -1,3 +1,7 @@
 <h1 class="font-bold text-xl">Last watering:</h1>
 <h2>{{time}}</h2>
-<img src="{{ url_for('static', filename=photo)}}" alt="photo" />
+<img
+  class="shadow-xl rounded"
+  src="{{ url_for('static', filename=photo)}}"
+  alt="photo"
+/>
