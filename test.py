@@ -26,13 +26,3 @@ def record(photo_name):
 
 
 record("cat.jpg")
-
-# while True:
-#     time.sleep(SLEEP_INTERVAL)
-#     watering_diff = math.floor(time.time() - last_watering)
-#     water_now = True if watering_diff > WATERING_INTERVAL else False
-#     dry_soil = False  # sensor_output()
-#     print("INFO: ", last_watering, water_now)
-#     if dry_soil or water_now:
-#         print("WATERING!!!")
-#         last_watering = time.time()

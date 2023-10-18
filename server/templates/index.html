@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for item in records %}
+    <div>
+      <p>{{item.id}}</p>
+      <p>{{item.time}}</p>
+      <!-- <img
+        src="{{ url_for('static', filename='23101809.jpg') }}"
+        alt="My Image"
+      /> -->
+      <p>{{item.image}}</p>
+    </div>
+    {% endfor %}
+  </body>
+</html>

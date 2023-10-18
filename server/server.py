@@ -1,12 +1,12 @@
 import os
 import time
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 SERVER_TYPE = "exposed"  # 'caddy, 'exposed'
 WHITELIST = ["127.0.0.1"]
 PHOTO_FOLDER = os.getcwd()
-DB = "postgresql://"
+DB = "postgresql://ibkyqvtn:eJlBdsPGn65oQohL_psiD_dTvT7uJwtd@ella.db.elephantsql.com/ibkyqvtn"
 
 db = SQLAlchemy()
 app = Flask(__name__)
@@ -17,19 +17,23 @@ db.init_app(app)
 
 class Records(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    time_of_record = db.Column(db.String)
-    path_to_image = db.Column(db.String)
+    time = db.Column(db.String)
+    image = db.Column(db.String)
+    water = db.Column(db.Integer, default=50)
 
     def __repr__(self):
-        return f"-\nID:{self.id}\nTIME:{self.time_of_record}\nPHOTO:{self.path_to_image}\n-"
+        return f"-\nID:{self.id}\nTIME:{self.time}\nPHOTO:{self.image}\n-"
+
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/q", methods=["GET"])
 def get_records():
-    db_query = Records.query.order_by(Records.id.desc()).all()
-    for item in db_query:
-        print(item)
-    return "ok"
+    records = Records.query.order_by(Records.id.desc()).all()
+    count = Records.query.count()
+    return render_template("index.html", records=records, count=count)
 
 
 @app.route("/store-record", methods=["POST"])
@@ -60,7 +64,7 @@ def index():
         photo.save(path_to_photo)  # type: ignore
 
         ###### SAVE TO DB
-        data_for_db = Records(time_of_record=watering_time, path_to_image=path_to_photo)
+        data_for_db = Records(time=watering_time, image=path_to_photo)
         db.session.add(data_for_db)
         db.session.commit()
         ###### SAVE TO DB
