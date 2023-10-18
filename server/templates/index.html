@@ -3,21 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <title>Document</title>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              dodis: ["Dodis"],
+            },
+          },
+        },
+      };
+    </script>
   </head>
-  <body>
-    {% for item in records %}
-    <div>
-      <p>{{item.id}}</p>
-      <p>{{item.time}}</p>
-      <!-- <img
-        src="{{ url_for('static', filename='23101809.jpg') }}"
-        alt="My Image"
-      /> -->
-      <p>{{item.image}}</p>
-    </div>
-    {% endfor %}
+  <body
+    class="w-full min-h-screen bg-gradient-to-br from-teal-200 to-green-300 flex flex-col gap-4 items-center font-dodis"
+  >
+    <header
+      class="border-b border-black lg:w-3/5 w-full flex flex-col items-center gap-4 pt-4"
+    >
+      <h1 class="text-3xl">pi.Watering-System</h1>
+      <nav class="flex gap-6 px-4">
+        {% set nav_links = ["Last Watering", "History", "Github"] %}
+        <!--  -->
+        {% for link in nav_links %}
+        <p class="hover:underline cursor-pointer">{{ link }}</p>
+        {% endfor %}
+      </nav>
+    </header>
+    <article>123</article>
   </body>
 </html>
