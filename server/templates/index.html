@@ -33,27 +33,30 @@
       <h1 class="text-3xl select-none">pi.Watering-System</h1>
       <nav class="flex gap-6 px-4">
         <p
-          class="hover:underline cursor-pointer hover:drop-shadow-md"
+          class="hover:underline cursor-pointer hover:capitalize"
           hx-get="/watering"
           hx-target="#htmxReplace"
         >
-          Watering
+          watering
         </p>
         <button
-          class="hover:underline cursor-pointer hover:drop-shadow-md"
+          class="hover:underline cursor-pointer hover:capitalize"
           hx-get="/history"
           hx-target="#htmxReplace"
         >
-          History
+          history
         </button>
-        <p class="hover:underline cursor-pointer hover:drop-shadow-md">
-          Github
-        </p>
+        <a
+          class="hover:underline cursor-pointer hover:capitalize"
+          href="https://github.com/BorisKlco/pi.watering-system/"
+          target="_blank"
+          >github</a
+        >
       </nav>
     </header>
     <article class="lg:w-3/5 w-full flex justify-center">
       <div
-        class="flex flex-col gap-4 w-4/5 items-center"
+        class="flex flex-col gap-4 w-4/5 items-center pt-2"
         id="htmxReplace"
         hx-get="/watering"
         hx-trigger="load"

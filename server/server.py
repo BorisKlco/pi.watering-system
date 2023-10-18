@@ -38,15 +38,14 @@ def main_page():
 @app.route("/watering", methods=["GET"])
 def last_watering():
     record = Records.query.order_by(Records.id.desc()).first()
-    time_converted = time.strftime(
-        "%d/%m/%y - %H:%M:%S", time.localtime(float(record.time))
-    )
-    return render_template("watering.html", time=time_converted, photo=record.image)
+    return render_template("watering.html", time=record.time, photo=record.image)
 
 
 @app.route("/history", methods=["GET"])
 def history():
-    return render_template("history.html")
+    records = Records.query.order_by(Records.id.desc()).all()
+    count = Records.query.count()
+    return render_template("history.html", count=count, history=records)
 
 
 @app.route("/store-record", methods=["POST"])
@@ -64,7 +63,7 @@ def index():
             return "IP not allowed...", 401
 
         ###### TIME DATA
-        watering_time = request.form.get("time")
+        watering_time = time.strftime("%d/%m/%y - %H:%M:%S")
 
         ###### PHOTO
         photo = request.files.get("file")

@@ -1,1 +1,28 @@
-<div>12312312</div>
+<h1 class="font-bold text-xl">History</h1>
+<div class="w-full">
+  <h1 class="text-center">Video Here</h1>
+  <h1 class="text-center">How much water was used: {{count * 50 / 1000}}L</h1>
+</div>
+<table class="w-full text-center">
+  <thead>
+    <tr class="divide-x divide-black border-b-2 border-black">
+      <th>Time of watering</th>
+      <th>Photo</th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-black">
+    {% for item in history %}
+    <tr class="divide-x divide-black hover:bg-green-300">
+      <td class="pb-2">{{item.time}}</td>
+      <td>
+        <a
+          href="{{ url_for('static', filename=item.image)}}"
+          target="_blank"
+          class="hover:underline"
+          >{{item.image}}</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
