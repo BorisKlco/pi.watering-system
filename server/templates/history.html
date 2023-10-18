@@ -1,6 +1,12 @@
 <h1 class="font-bold text-xl">History</h1>
-<div class="w-full">
-  <h1 class="text-center">Video Here</h1>
+<div class="w-full flex flex-col gap-4">
+  <video autoplay loop class="w-full rounded-md">
+    <source
+      src="{{ url_for('static', filename='video.mp4')}}"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video>
   <h1 class="text-center">How much water was used: {{count * 50 / 1000}}L</h1>
 </div>
 <table class="w-full text-center shadow-xl rounded">
