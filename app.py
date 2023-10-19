@@ -3,16 +3,20 @@ import time
 import math
 import requests
 import RPi.GPIO as GPIO
+from picamera import PiCamera
 from controller import Relay, Sensor
+
+
+sensor_data = Sensor(22)
+pump = Relay(23)
+sensor = Relay(24)
+camera = PiCamera()
+camera.resolution = (1280, 720)
 
 last_watering = time.time()
 SLEEP_INTERVAL = 1  # 8 hour - 28800
 WATERING_INTERVAL = 6  # 24 hour - 86400
 SERVER = "http://127.0.0.1:5173/store-record"
-
-sensor_data = Sensor(22)
-pump = Relay(23)
-sensor = Relay(24)
 
 
 def init():
@@ -47,23 +51,17 @@ def water(sec=5):
     print(f"{now()} - Watering done...")
 
 
-def photo():
-    time.sleep(1)
-    print("Taking photo")
-    print("Photo taken")
-    time.sleep(1)
-
-
-def record(photo_name):
+def record():
     try:
-        data_time = time.time()
-        data_photo = os.getcwd() + "/" + photo_name
+        camera.start_preview()
         photo_name = time.strftime("%y%m%d%H") + ".jpg"
+        data_photo = os.getcwd() + "/photos/" + photo_name
+        time.sleep(2)
+        camera.capture(data_photo)
 
-        data = {"time": data_time, "filename": photo_name}
+        data = {"filename": photo_name}
 
         files = {"file": (photo_name, open(data_photo, "rb"))}
-        print(data, files)
         req = requests.post(SERVER, data=data, files=files, timeout=15)
         print("Sending record -> ", req.text, req.status_code)
     except:
@@ -82,8 +80,7 @@ try:
         if dry_soil and water_now:
             print("WATERING!!!")
             # water()
-            # photo()
-            # record(jpg)
+            # record()
             last_watering = time.time()
 
 finally:

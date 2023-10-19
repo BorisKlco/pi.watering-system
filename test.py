@@ -11,14 +11,12 @@ SERVER = "http://127.0.0.1:5173/store-record"
 
 def record(photo_name):
     try:
-        data_time = time.time()
-        data_photo = os.getcwd() + "/" + photo_name
+        data_photo = os.getcwd() + "/photos/" + photo_name
         photo_name = time.strftime("%y%m%d%H") + ".jpg"
 
-        data = {"time": data_time, "filename": photo_name}
+        data = {"filename": photo_name}
 
         files = {"file": (photo_name, open(data_photo, "rb"))}
-        print(data, files)
         req = requests.post(SERVER, data=data, files=files, timeout=15)
         print("Sending record -> ", req.text, req.status_code)
     except:
