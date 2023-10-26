@@ -1,9 +1,12 @@
 # pi.watering-system
 
-## TODO:
-  - Camera system, recording, time lapse
-  - Water Level Logic
-  - Web Interface
+## Project overview:
+  **Watering System 💦 with web interface on Raspberry Pi:**
+  
+  https://dev.to/borisklco/watering-system-with-web-interface-on-raspberry-pi-1d0l
+
+
+  
 ## Schematic:
 
 [https://excalidraw.com/#json=RlH4OjntAQs4o_2UkupOm,U1BlJojmNKWQhYva5iNXTw](https://excalidraw.com/#json=RlH4OjntAQs4o_2UkupOm,U1BlJojmNKWQhYva5iNXTw)
