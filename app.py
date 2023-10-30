@@ -59,8 +59,8 @@ def record():
         time.sleep(2)
         camera.capture(data_photo)
 
-        data = {"filename": photo_name}
-
+        data = {"filename": photo_name, "water": 1}
+        
         files = {"file": (photo_name, open(data_photo, "rb"))}
         req = requests.post(SERVER, data=data, files=files, timeout=15)
         print("Sending record -> ", req.text, req.status_code)
