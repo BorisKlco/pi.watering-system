@@ -76,7 +76,15 @@ def index():
         photo.save(path_to_photo)  # type: ignore
 
         ###### SAVE TO DB
-        data_for_db = Records(time=watering_time, image=photo_name, path=path_to_photo)
+        record = request.form.get("record")
+        if record == "1":
+            data_for_db = Records(
+                time=watering_time, image=photo_name, path=path_to_photo, water=0
+            )
+        else:
+            data_for_db = Records(
+                time=watering_time, image=photo_name, path=path_to_photo
+            )
         db.session.add(data_for_db)
         db.session.commit()
         ###### SAVE TO DB
