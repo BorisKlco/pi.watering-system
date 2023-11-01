@@ -1,10 +1,12 @@
 import os
 import time
+from PIL import Image
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from moviepy.editor import ImageSequenceClip
 
-SERVER_TYPE = "exposed"  # 'caddy, 'exposed'
-WHITELIST = ["127.0.0.1"]
+SERVER_TYPE = "caddy"  # 'caddy, 'exposed'
+WHITELIST = [""]
 PHOTO_FOLDER = os.getcwd()
 DB = "sqlite:///" + PHOTO_FOLDER + "/db.sqlite3"
 
@@ -32,6 +34,8 @@ with app.app_context():
 
 @app.route("/", methods=["GET"])
 def main_page():
+    with open('/home/ubuntu/ip.txt', 'a') as file:
+        file.write(request.headers["X-Forwarded-For"] + '\n')
     return render_template("index.html")
 
 
@@ -68,23 +72,20 @@ def index():
         ###### PHOTO
         photo = request.files.get("file")
         if request.form.get("filename") is None:
-            photo_name = time.strftime("%y%m%d-%H") + ".jpg"
+            photo_name = time.strftime("%y%m%d-%H-%M") + ".jpg"
         else:
             photo_name = request.form.get("filename")
 
-        path_to_photo = os.path.join(PHOTO_FOLDER, "static", photo_name)  # type: ignore
+        path_to_photo = os.path.join(PHOTO_FOLDER, "static/images", photo_name)  # type: ignore
         photo.save(path_to_photo)  # type: ignore
 
+        compr = Image.open(path_to_photo)
+        compr.save(path_to_photo, quality=95)
+        clip = ImageSequenceClip("static/images", fps=1)
+        clip.write_videofile("static/video/video.mp4")
+
         ###### SAVE TO DB
-        record = request.form.get("record")
-        if record == "1":
-            data_for_db = Records(
-                time=watering_time, image=photo_name, path=path_to_photo, water=0
-            )
-        else:
-            data_for_db = Records(
-                time=watering_time, image=photo_name, path=path_to_photo
-            )
+        data_for_db = Records(time=watering_time, image=photo_name, path=path_to_photo)
         db.session.add(data_for_db)
         db.session.commit()
         ###### SAVE TO DB
@@ -95,4 +96,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(threaded=True, debug=True, port=5173)
+    app.run(threaded=True, debug=False, port=3000)
