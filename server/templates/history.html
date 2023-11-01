@@ -2,7 +2,7 @@
 <div class="w-full flex flex-col gap-4">
   <video autoplay loop class="w-full rounded-md shadow-md">
     <source
-      src="{{ url_for('static', filename='video.mp4')}}"
+      src="{{ url_for('static', filename='video/video.mp4')}}"
       type="video/mp4"
     />
     Your browser does not support the video tag.
@@ -25,7 +25,7 @@
       <td class="pb-2">{{item.time}}</td>
       <td>
         <a
-          href="{{ url_for('static', filename=item.image)}}"
+          href="{{ url_for('static', filename='images/' + item.image)}}"
           target="_blank"
           class="hover:underline"
           >{{item.image}}</a
