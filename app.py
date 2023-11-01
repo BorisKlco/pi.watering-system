@@ -11,7 +11,7 @@ sensor_data = Sensor(22)
 pump = Relay(23)
 sensor = Relay(24)
 camera = PiCamera()
-camera.resolution = (1280, 720)
+camera.resolution = (1280, 1024)
 
 last_watering = time.time()
 SLEEP_INTERVAL = 1  # 8 hour - 28800
@@ -54,13 +54,15 @@ def water(sec=5):
 def record():
     try:
         camera.start_preview()
-        photo_name = time.strftime("%y%m%d%H") + ".jpg"
+        camera.annotate_text = time.strftime("%d/%m/%y - %H:%M:%S")
+        camera.annotate_text_size = 50
+        photo_name = time.strftime("%y%m%d-%H-%M") + ".jpg"
         data_photo = os.getcwd() + "/photos/" + photo_name
         time.sleep(2)
-        camera.capture(data_photo)
+        camera.capture(data_photo, quality=100)
 
         data = {"filename": photo_name, "water": 1}
-        
+
         files = {"file": (photo_name, open(data_photo, "rb"))}
         req = requests.post(SERVER, data=data, files=files, timeout=15)
         print("Sending record -> ", req.text, req.status_code)
