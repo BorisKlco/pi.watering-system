@@ -9,18 +9,19 @@ import requests
 from picamera import PiCamera
 
 camera = PiCamera()
-camera.resolution = (1280, 720)
+camera.resolution = (1280, 1024)
 
 SERVER = "http://127.0.0.1:5173/store-record"
-
 
 def record():
     try:
         camera.start_preview()
-        photo_name = time.strftime("%y%m%d%H") + ".jpg"
+        camera.annotate_text = time.strftime("%d/%m/%y - %H:%M:%S")
+        camera.annotate_text_size = 50
+        photo_name = time.strftime("%y%m%d-%H-%M") + ".jpg"
         data_photo = os.getcwd() + "/photos/" + photo_name
         time.sleep(2)
-        camera.capture(data_photo)
+        camera.capture(data_photo, quality=100)
 
         data = {"filename": photo_name, "water": 0}
 
@@ -29,3 +30,6 @@ def record():
         print("Sending record -> ", req.text, req.status_code)
     except:
         print("Error while sending record...")
+
+
+record()
